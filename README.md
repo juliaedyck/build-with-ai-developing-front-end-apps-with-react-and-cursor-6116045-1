@@ -1,5 +1,5 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Build with AI: Developing Front-End Apps with React and Cursor
+This is the repository for the LinkedIn Learning course `Build with AI: Developing Front-End Apps with React and Cursor`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![lil-thumbnail-url]
 
