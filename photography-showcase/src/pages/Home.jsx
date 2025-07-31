@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PhotoCard from "../components/PhotoCard";
 import PhotoModal from "../components/photoModal";
+import CategoryFilter from "../components/CategoryFilter";
 import { photos } from "../data"
 
 function Home() {
@@ -13,6 +14,9 @@ function Home() {
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState(null);
   const [photoDetails, setPhotoDetails] = useState({}); // Store details for all photos
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const categories = ["all", "fauna", "flora", "people", "interiors", "landscapes"];
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -88,7 +92,7 @@ function Home() {
 
   return (
     <>
-
+      <CategoryFilter categories={categories} onCategorySelect={setSelectedCategory} selectedCategory={selectedCategory} />
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {photos.map((photo) => {
           const photoDetail = photoDetails[photo.id];
