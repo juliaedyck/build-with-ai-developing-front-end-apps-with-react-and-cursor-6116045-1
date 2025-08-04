@@ -1,8 +1,8 @@
 import React from "react";
 
-const PhotoCard = ({ imageUrl, title, category, categories, onClick, isSelected, isFavourite, onFavouriteToggle }) => {
-  // Prefer categories[0] if categories is an array, else fallback to category prop
-  const displayCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : category;
+const PhotoCard = ({ imageUrl, title, categories, onClick, isSelected, isFavourite, onFavouriteToggle }) => {
+  // Get the first category or show "Uncategorized" if none available
+  const displayCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : "Uncategorized";
   return (
     <div
       className={`bg-white rounded-2xl shadow-lg border overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:border-blue-200 max-w-xs w-full mx-auto flex flex-col ${isSelected ? 'border-blue-500' : 'border-gray-200'}`}

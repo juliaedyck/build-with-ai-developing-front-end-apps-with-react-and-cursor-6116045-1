@@ -15,8 +15,8 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredPhotos = filterPhotos(photos, selectedCategory, searchQuery, photoDetails);
   const categories = ["all", "fauna", "flora", "people", "interiors", "landscapes"];
+  const filteredPhotos = filterPhotos(photos, selectedCategory, searchQuery, photoDetails);
 
   if (loading) return <div className="text-center py-10">Loading photos...</div>;
   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
@@ -54,21 +54,18 @@ function Home() {
       </div>
      
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredPhotos.map((photo) => {
-          const photoDetail = photoDetails[photo.id];
-          return (
-            <PhotoCard
-              key={photo.id || photo.url}
-              imageUrl={photo.url_medium_size}
-              title={photo.title}
-              categories={photoDetail?.categories || photo.categories}
-              onClick={() => handlePhotoSelect(photo)}
-              isSelected={selectedPhoto?.id === photo.id}
-              isFavourite={isFavourite(photo.id)}
-              onFavouriteToggle={() => handleFavouriteToggle(photo.id)}
-            />
-          );
-        })}
+        {filteredPhotos.map((photo) => (
+          <PhotoCard
+            key={photo.id || photo.url}
+            imageUrl={photo.url_medium_size}
+            title={photo.title}
+            categories={photoDetails[photo.id]?.categories || photo.categories}
+            onClick={() => handlePhotoSelect(photo)}
+            isSelected={selectedPhoto?.id === photo.id}
+            isFavourite={isFavourite(photo.id)}
+            onFavouriteToggle={() => handleFavouriteToggle(photo.id)}
+          />
+        ))}
       </main>
       <PhotoModal
         open={!!selectedPhoto}

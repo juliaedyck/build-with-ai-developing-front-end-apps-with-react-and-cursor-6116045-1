@@ -21,7 +21,7 @@ function App() {
       <main className="flex-1 p-4 flex items-center justify-center bg-gray-50">
 
         <div className="w-full max-w-3xl text-center">
-          <p className="text-lg text-gray-700">Welcome to the Photography Showcase! Add your content here.</p>
+        
           {/* Render the Home page here */} 
           <Home />
 
