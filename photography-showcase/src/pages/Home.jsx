@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PhotoCard from "../components/PhotoCard";
 import PhotoModal from "../components/photoModal";
 import CategoryFilter from "../components/CategoryFilter";
@@ -17,6 +17,29 @@ function Home() {
 
   const categories = ["all", "fauna", "flora", "people", "interiors", "landscapes"];
   const filteredPhotos = filterPhotos(photos, selectedCategory, searchQuery, photoDetails);
+
+  // Memoized PhotoCard component to prevent unnecessary re-renders
+  const MemoizedPhotoCard = useCallback(({ photo }) => {
+    const handleClick = useCallback(() => {
+      handlePhotoSelect(photo);
+    }, [handlePhotoSelect, photo]);
+
+    const handleFavouriteToggle = useCallback(() => {
+      handleFavouriteToggle(photo.id);
+    }, [handleFavouriteToggle, photo.id]);
+
+    return (
+      <PhotoCard
+        imageUrl={photo.url_medium_size}
+        title={photo.title}
+        categories={photoDetails[photo.id]?.categories || photo.categories}
+        onClick={handleClick}
+        isSelected={selectedPhoto?.id === photo.id}
+        isFavourite={isFavourite(photo.id)}
+        onFavouriteToggle={handleFavouriteToggle}
+      />
+    );
+  }, [handlePhotoSelect, handleFavouriteToggle, photoDetails, selectedPhoto?.id, isFavourite]);
 
   if (loading) return <div className="text-center py-10">Loading photos...</div>;
   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
@@ -55,16 +78,7 @@ function Home() {
      
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredPhotos.map((photo) => (
-          <PhotoCard
-            key={photo.id || photo.url}
-            imageUrl={photo.url_medium_size}
-            title={photo.title}
-            categories={photoDetails[photo.id]?.categories || photo.categories}
-            onClick={() => handlePhotoSelect(photo)}
-            isSelected={selectedPhoto?.id === photo.id}
-            isFavourite={isFavourite(photo.id)}
-            onFavouriteToggle={() => handleFavouriteToggle(photo.id)}
-          />
+          <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} />
         ))}
       </main>
       <PhotoModal

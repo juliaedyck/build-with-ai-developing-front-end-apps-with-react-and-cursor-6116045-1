@@ -1,6 +1,6 @@
 import React from "react";
 
-const PhotoCard = ({ imageUrl, title, categories, onClick, isSelected, isFavourite, onFavouriteToggle }) => {
+const PhotoCard = React.memo(({ imageUrl, title, categories, onClick, isSelected, isFavourite, onFavouriteToggle }) => {
   // Get the first category or show "Uncategorized" if none available
   const displayCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : "Uncategorized";
   return (
@@ -35,7 +35,7 @@ const PhotoCard = ({ imageUrl, title, categories, onClick, isSelected, isFavouri
       </div>
     </div>
   );
-};
+});
 
 export default PhotoCard;
 
