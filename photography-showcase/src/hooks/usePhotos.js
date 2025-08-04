@@ -13,8 +13,6 @@ export const usePhotos = () => {
         if (!response.ok) throw new Error("Failed to fetch photos");
         const data = await response.json();
         setPhotos(data);
-        console.log("Photo data structure:", data[0]);
-        console.log("Available image fields:", Object.keys(data[0] || {}));
         
         // Fetch details for all photos
         const detailsPromises = data.map(async (photo) => {

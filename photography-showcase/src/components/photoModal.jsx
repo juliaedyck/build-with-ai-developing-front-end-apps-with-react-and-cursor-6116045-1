@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PhotoModal = ({ open, onClose, photo, imageUrl, loading, error }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
   if (!open || !photo) return null;
 
   return (
@@ -23,17 +22,12 @@ const PhotoModal = ({ open, onClose, photo, imageUrl, loading, error }) => {
             <>
               <div className="relative w-full flex justify-center mb-2">
                 <img
-                  src={imageUrl || photo.url_medium_size || photo.imageUrl}
+                  src={imageUrl}
                   alt={photo.title}
                   className="object-contain rounded-xl mb-4 shadow max-w-full max-h-[80vh]"
                 />
               </div>
               <h2 className="text-2xl font-bold mb-2 text-gray-900">{photo.title}</h2>
-              {photo.category && (
-                <span className="inline-block bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full font-semibold shadow-sm border border-blue-100 mb-2">
-                  {photo.category}
-                </span>
-              )}
               {/* Show description if available */}
               {photo.description && (
                 <p className="text-gray-700 mt-2 text-center">{photo.description}</p>

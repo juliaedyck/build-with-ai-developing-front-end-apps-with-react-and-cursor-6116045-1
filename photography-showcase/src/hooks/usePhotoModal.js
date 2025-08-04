@@ -17,7 +17,6 @@ export const usePhotoModal = () => {
       if (!response.ok) throw new Error("Failed to fetch photo details");
       const data = await response.json();
       setSelectedPhotoDetails(data[0]);
-      console.log(data[0]);
     } catch (err) {
       setDetailsError(err.message);
       setSelectedPhotoDetails(null);
