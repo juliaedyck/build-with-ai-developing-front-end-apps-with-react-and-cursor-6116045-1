@@ -24,7 +24,7 @@ function Home() {
       handlePhotoSelect(photo);
     }, [handlePhotoSelect, photo]);
 
-    const handleFavouriteToggle = useCallback(() => {
+    const handleFavouriteClick = useCallback(() => {
       handleFavouriteToggle(photo.id);
     }, [handleFavouriteToggle, photo.id]);
 
@@ -36,7 +36,7 @@ function Home() {
         onClick={handleClick}
         isSelected={selectedPhoto?.id === photo.id}
         isFavourite={isFavourite(photo.id)}
-        onFavouriteToggle={handleFavouriteToggle}
+        onFavouriteToggle={handleFavouriteClick}
       />
     );
   }, [handlePhotoSelect, handleFavouriteToggle, photoDetails, selectedPhoto?.id, isFavourite]);
@@ -76,10 +76,12 @@ function Home() {
         </p>
       </div>
      
-      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredPhotos.map((photo) => (
-          <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} />
-        ))}
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+          {filteredPhotos.map((photo) => (
+            <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} />
+          ))}
+        </div>
       </main>
       <PhotoModal
         open={!!selectedPhoto}
