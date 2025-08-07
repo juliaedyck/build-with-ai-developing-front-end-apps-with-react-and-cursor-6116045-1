@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import PhotoCard from "../components/PhotoCard";
 import PhotoModal from "../components/photoModal";
 import CategoryFilter from "../components/CategoryFilter";
@@ -14,9 +14,20 @@ function Home() {
   
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   const categories = ["all", "fauna", "flora", "people", "interiors", "landscapes"];
   const filteredPhotos = filterPhotos(photos, selectedCategory, searchQuery, photoDetails);
+
+  // Set initial render to false after first render cycle
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialRender(false);
+    }, 100); // Small delay to ensure animations start
+    return () => clearTimeout(timer);
+  }, []);
+
+  console.log('Home render:', { isInitialRender, photoCount: filteredPhotos.length }); // Debug log
 
   // Memoized PhotoCard component to prevent unnecessary re-renders
   const MemoizedPhotoCard = useCallback(({ photo, index }) => {
@@ -28,6 +39,9 @@ function Home() {
       handleFavouriteToggle(photo.id);
     }, [handleFavouriteToggle, photo.id]);
 
+    // Temporarily force animation to always be true for testing
+    const shouldAnimate = true; // isInitialRender;
+
     return (
       <PhotoCard
         imageUrl={photo.url_medium_size}
@@ -38,9 +52,10 @@ function Home() {
         isFavourite={isFavourite(photo.id)}
         onFavouriteToggle={handleFavouriteClick}
         index={index}
+        shouldAnimate={shouldAnimate}
       />
     );
-  }, [handlePhotoSelect, handleFavouriteToggle, photoDetails, selectedPhoto?.id, isFavourite]);
+  }, [handlePhotoSelect, handleFavouriteToggle, photoDetails, selectedPhoto?.id, isFavourite, isInitialRender]);
 
   if (loading) return <div className="text-center py-10">Loading photos...</div>;
   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
@@ -78,7 +93,7 @@ function Home() {
       </div>
      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-start justify-start">
           {filteredPhotos.map((photo, index) => (
             <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} index={index} />
           ))}

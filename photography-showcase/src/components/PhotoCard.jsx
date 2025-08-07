@@ -1,17 +1,21 @@
 import React from "react";
 
-const PhotoCard = React.memo(({ imageUrl, title, categories, onClick, isSelected, isFavourite, onFavouriteToggle, index = 0 }) => {
+const PhotoCard = React.memo(({ imageUrl, title, categories, onClick, isSelected, isFavourite, onFavouriteToggle, index = 0, shouldAnimate = true }) => {
   // Get the first category or show "Uncategorized" if none available
   const displayCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : "Uncategorized";
   
+  console.log('PhotoCard render:', { title, shouldAnimate, index }); // Debug log
+  
   return (
     <div
-      className={`bg-white rounded-2xl shadow-lg border overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:border-blue-200 max-w-xs w-full mx-auto flex flex-col animate-fade-in-up ${isSelected ? 'border-blue-500' : 'border-gray-200'}`}
+      className={`bg-white rounded-2xl shadow-lg border overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:border-blue-200 max-w-xs w-full mx-auto flex flex-col ${shouldAnimate ? 'animate-fade-in-up' : ''} ${isSelected ? 'border-blue-500' : 'border-gray-200'}`}
       onClick={onClick}
       style={{ 
         cursor: onClick ? 'pointer' : 'default',
-        animationDelay: `${index * 100}ms`,
-        animationFillMode: 'both'
+        ...(shouldAnimate ? {
+          animationDelay: `${index * 100}ms`,
+          animationFillMode: 'both'
+        } : {})
       }}
     >
       <div className="p-2 flex justify-center bg-gray-50 relative">

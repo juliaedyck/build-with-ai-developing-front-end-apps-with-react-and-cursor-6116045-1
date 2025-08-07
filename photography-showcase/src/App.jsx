@@ -12,7 +12,7 @@ function App() {
       {/* Header */}
       <Header />
       {/* Main Content */}
-      <main className="flex-1 p-4 flex items-center justify-center bg-gray-50">
+      <main className="flex-1 p-4 flex items-start justify-center bg-gray-50">
 
         <div className="w-full max-w-3xl text-center">
         
