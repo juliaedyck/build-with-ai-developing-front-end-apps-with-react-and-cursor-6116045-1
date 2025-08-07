@@ -19,7 +19,7 @@ function Home() {
   const filteredPhotos = filterPhotos(photos, selectedCategory, searchQuery, photoDetails);
 
   // Memoized PhotoCard component to prevent unnecessary re-renders
-  const MemoizedPhotoCard = useCallback(({ photo }) => {
+  const MemoizedPhotoCard = useCallback(({ photo, index }) => {
     const handleClick = useCallback(() => {
       handlePhotoSelect(photo);
     }, [handlePhotoSelect, photo]);
@@ -37,6 +37,7 @@ function Home() {
         isSelected={selectedPhoto?.id === photo.id}
         isFavourite={isFavourite(photo.id)}
         onFavouriteToggle={handleFavouriteClick}
+        index={index}
       />
     );
   }, [handlePhotoSelect, handleFavouriteToggle, photoDetails, selectedPhoto?.id, isFavourite]);
@@ -78,8 +79,8 @@ function Home() {
      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
-          {filteredPhotos.map((photo) => (
-            <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} />
+          {filteredPhotos.map((photo, index) => (
+            <MemoizedPhotoCard key={photo.id || photo.url} photo={photo} index={index} />
           ))}
         </div>
       </main>
