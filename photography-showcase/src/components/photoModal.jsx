@@ -4,16 +4,16 @@ const PhotoModal = ({ open, onClose, photo, imageUrl, loading, error }) => {
   if (!open || !photo) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[700px] overflow-y-auto relative">
         <button
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold z-10"
           onClick={onClose}
           aria-label="Close"
         >
           &times;
         </button>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center p-4">
           {loading ? (
             <div className="py-10 text-lg">Loading details...</div>
           ) : error ? (
@@ -24,7 +24,7 @@ const PhotoModal = ({ open, onClose, photo, imageUrl, loading, error }) => {
                 <img
                   src={imageUrl}
                   alt={photo.title}
-                  className="object-contain rounded-xl mb-4 shadow max-w-full max-h-[80vh]"
+                  className="object-contain rounded-xl mb-4 shadow max-w-full max-h-[350px]"
                 />
               </div>
               <h2 className="text-2xl font-bold mb-2 text-gray-900">{photo.title}</h2>
