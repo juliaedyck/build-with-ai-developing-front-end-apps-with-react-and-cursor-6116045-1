@@ -5,7 +5,6 @@ function Home() {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photoDetails, setPhotoDetails] = useState({}); // Store details for all photos
 
   useEffect(() => {
@@ -50,9 +49,9 @@ function Home() {
     fetchPhotos();
   }, []);
 
-  const handlePhotoSelect = (photo) => {
-    setSelectedPhoto(photo);
-  };
+
+
+
 
   if (loading) return <div className="text-center py-10">Loading photos...</div>;
   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
@@ -69,8 +68,6 @@ function Home() {
               imageUrl={photo.url_medium_size}
               title={photo.title}
               categories={photoDetail?.categories || photo.categories}
-              onClick={() => handlePhotoSelect(photo)}
-              isSelected={selectedPhoto?.id === photo.id}
             />
           );
         })}

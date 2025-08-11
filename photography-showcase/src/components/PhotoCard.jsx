@@ -1,14 +1,10 @@
 import React from "react";
 
-const PhotoCard = ({ imageUrl, title, category, categories, onClick, isSelected }) => {
+const PhotoCard = ({ imageUrl, title, category, categories }) => {
   // Prefer categories[0] if categories is an array, else fallback to category prop
   const displayCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : category;
   return (
-    <div 
-      className={`bg-white rounded-2xl shadow-lg border overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:border-blue-200 max-w-xs w-full mx-auto flex flex-col ${isSelected ? 'border-blue-500' : 'border-gray-200'}`}
-      onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}
-    >
+    <div className="bg-white rounded-2xl shadow-lg border overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:border-blue-200 max-w-xs w-full mx-auto flex flex-col border-gray-200">
       <div className="p-2 flex justify-center bg-gray-50">
         <img
           src={imageUrl}
