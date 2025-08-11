@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PhotoModal = ({ open, onClose, photo, imageUrl, loading, error }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
   if (!open || !photo) return null;
 
   return (
