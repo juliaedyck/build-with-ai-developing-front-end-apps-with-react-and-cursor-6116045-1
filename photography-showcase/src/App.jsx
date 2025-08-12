@@ -1,37 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import { photos } from './data'
-
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-
-    
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header */}
       <Header />
-      {/* Main Content */}
-      <main className="flex-1 p-4 flex items-center justify-center bg-gray-50">
-
-        <div className="w-full max-w-3xl text-center">
-          <p className="text-lg text-gray-700">Welcome to the Photography Showcase! Add your content here.</p>
-          {/* Render the Home page here */} 
-          <Home />
-
-
+      
+      {/* Main Content Area */}
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Page Title */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Photography Showcase
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+             
+            </p>
+          </div>
         </div>
+          
+       
       </main>
+      
       {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
